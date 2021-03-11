@@ -14,14 +14,19 @@
 
     <nav class="navbar navbar-expand-lg navbar-white bg-white">
         <div class="d-flex">
-            <a class="navbar-brand" href="./index.html">
+            <a class="navbar-brand" href="#">
                 Latitude
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
-        <div class="collapse navbar-collapse flex-grow-1">
+        <button type="button" class="navbar-toggler collapsed ml-auto" data-toggle="collapse" data-target="#menu_items">
+            <div class="hamburger"></div>
+            <div class="hamburger"></div>
+            <div class="hamburger"></div>
+        </button>
+        <div class="collapse navbar-collapse flex-grow-1" id="menu_items">
             <ul class="navbar-nav ml-auto flex-nowrap">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -29,7 +34,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item" href="./max_temp.html">Max Temperature</a>
-                      <a class="dropdown-item" href="#">Humidity</a>
+                      <a class="dropdown-item" href="./humidity.html">Humidity</a>
                       <a class="dropdown-item" href="./cloudiness.html">Cloudiness</a>
                       <a class="dropdown-item" href="./wind.html">Wind Speed</a>
                     </div>
