@@ -14,7 +14,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-white bg-white">
         <div class="d-flex">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="./index.html">
                 Latitude
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,7 +31,7 @@
                       <a class="dropdown-item" href="./max_temp.html">Max Temperature</a>
                       <a class="dropdown-item" href="./humidity.html">Humidity</a>
                       <a class="dropdown-item" href="./cloudiness.html">Cloudiness</a>
-                      <a class="dropdown-item" href="./wind.html">Wind Speed</a>
+                      <a class="dropdown-item" href="#">Wind Speed</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -47,22 +47,26 @@
             </ul>
         </div>
     </nav>
-    
+
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-7 box">
-                <h1>Summary: Latitude vs. X</h1>
-                <hr>
-                <img src="./Images/city_lat_vs_max_temp.PNG" alt="Scatter plot depicting city latitude 
-                versus max temperature" class="summary-image"/>
-                <p>The purpose of this project was to analyze how weather changes as you get closer to the 
-                    equator. To accomplish this analysis, we first pulled data from the OpenWeatherMap API to 
-                    assemble a dataset on over 500 cities.<br><br> After assembling the dataset, we used Matplotlib
-                    to plot various aspects of the weather vs. latitude. Factors we looked at included:
-                    temperature, cloudiness, wind speed and humidity. This site provides the source data and
-                    visualizations created as part of the analysis, as well as explanations and descriptions
-                    of any trends and correlations witnessed.
-                </p>
+                <div class="row">
+                    <div class="col">
+                        <h1>Wind Speed</h1>
+                        <hr>
+                        <img src="./Images/city_lat_vs_wind_speed.PNG" alt="Scatter plot depicting city latitude 
+                        versus wind speed" class="image"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>This graph shows no correlation between wind speed and latitudinal location. Windiness is
+                            instead affected by the proximity of high-pressure areas to low-pressure areas. Topographical
+                            elements like buildlings and trees can funnel wind and change the windiness of a place as well.
+                        </p>
+                    </div>
+                </div>
             </div>
             <div class="col-12 col-lg-4">
                 <div class="row">
@@ -85,54 +89,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="row"></div>
+                <div class="row">
+                </div>
             </div>
         </div>
     </div>    
 
+
+
+
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-      
+        
 </body>
-      
+        
 </html>
-
-
-
-
-
-
-    <!-- Start of container -->
-    <!-- <div class="container">
-        <section class="row">
-          <div class="col-md-8">
-            <article class="description-content">
-              <h1 class="description-header">Summary: Latitude vs. X</h1>
-              <hr class="description-hr"/>
-              <img src="./Images/city_lat_vs_max_temp.PNG" alt="" id="description-image"/>
-              <p>The purpose of this project was to analyze how weather changes as you get closer to the equator. To accomplish this analysis, we first pulled data from the OpenWeatherMap API to assemble a dataset on over 500 cities.</p>
-              <p>After assembling the dataset, we used Matplotlib to plot various aspects of the weather vs. latitude. Factors we looked at included: temperature, cloudiness, wind speed, and humidity. This site provides the source data and visualizations created as part of the analysis, as well as explanations and descriptions of any trends and correlations witnessed.</p>
-            </article>
-          </div>
-          <div class="col-md-4">
-   -->
-            <!-- Start of Visualizations imageNav Area -->
-            <!-- <section id="imageNav-area">
-              <div class="imageNav-content">
-                <h2 class="imageNav-header">Visualizations</h2>
-                <hr />
-                <div id="images">
-                  <a href="visualizations/temp.html"><img src="./Images/city_lat_vs_max_temp.PNG" alt="Latitude vs. Max Temperature" class="imageNav-photo"></a>
-                  <a href="visualizations/humidity.html"><img src="./Images/city_lat_vs_humidity.PNG" alt="Latitude vs. Humidity" class="imageNav-photo"></a>
-                  <a href="visualizations/cloudiness.html"><img src="./Images/city_lat_vs_cloudiness.PNG" alt="Latitude vs. Cloudiness" class="imageNav-photo"></a>
-                  <a href="visualizations/wind.html"><img src="./Images/city_lat_vs_wind_speed.PNG" alt="Latitude vs. Wind Speed" class="imageNav-photo"></a>
-                </div>
-              </div>
-            </section> -->
-            <!-- End of the Visualizations imageNav Area -->
-  
-          <!-- </div>
-        </section>
-      </div> -->
-      <!-- End of container -->

@@ -26,8 +26,13 @@ body {
     font-weight: 800;
 }
 
+.nav-item {
+    animation-name: background-color; 
+    animation-duration: 500ms; 
+}
+
 .box {
-    min-height: 50px;
+    height: auto;
     padding: 20px;
     font-weight: 800;
     font-size: 13px;
@@ -43,17 +48,23 @@ h1 {
     font-size: 20px;
     font-weight: 800;
 }
-  
-.image {
+
+.summary-image {
     margin: 10px;
     height: 200px;
     float: left;
 }
 
+.image {
+    margin: 10px;
+    height: auto;
+    max-width: 100%;
+}
+
 .nested-image {
     margin: 5px;
-    height: 80px;
-
+    height: auto;
+    max-width: 100%;
 }
 
 .dropdown-item,
@@ -62,3 +73,45 @@ h1 {
     font-size: 13px;
     color: #5E5E5E;
 }
+
+.embed-responsive-item {
+    width: 100%;
+    min-height: 500px;
+}
+
+.nav-item a:hover {
+    color: #5E5E5E;
+    background-color: #DFE0E0; 
+}
+
+.navbar-brand:hover {
+    color: #FEFEFE;
+    box-shadow: 2px 2px #DFE0E0;
+}
+
+/* .links a { 
+    color: green; 
+    padding: 5px 16px; 
+    text-decoration: none; 
+    font-size: 17px; 
+    display: block; 
+    text-align: center; 
+    border-bottom: 1px solid white; 
+} 
+
+.links a:hover { 
+    background-color: green; 
+    color: white; 
+}  */
+
+
+/* button:hover { 
+    animation-name: background-color; 
+    animation-duration: 500ms; 
+} 
+
+@keyframes background-color { 
+    100% { 
+        background-color: #4065F3; 
+    } 
+}  */
