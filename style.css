@@ -24,12 +24,35 @@ body {
     font-family: "Lucida Bright", serif;
     font-size: 22px;
     font-weight: 800;
-}
+ }
 
 .nav-item {
     animation-name: background-color; 
     animation-duration: 500ms; 
 }
+
+.nav-item a:hover {
+    color: #5E5E5E;
+    background-color: #DFE0E0; 
+}
+
+.navbar-brand:hover {
+    color: #FEFEFE;
+    box-shadow: 2px 2px #DFE0E0;
+}
+
+.dropdown-item,
+.nav-link {
+    font-family: Montserrat, sans-serif;
+    font-size: 13px;
+    color: #5E5E5E;
+}
+
+button { 
+    background-color: transparent; 
+    border: none;
+    outline: none;
+} 
 
 .box {
     height: auto;
@@ -67,51 +90,14 @@ h1 {
     max-width: 100%;
 }
 
-.dropdown-item,
-.nav-link {
-    font-family: Montserrat, sans-serif;
-    font-size: 13px;
-    color: #5E5E5E;
-}
-
 .embed-responsive-item {
     width: 100%;
     min-height: 500px;
 }
 
-.nav-item a:hover {
-    color: #5E5E5E;
-    background-color: #DFE0E0; 
-}
-
-.navbar-brand:hover {
-    color: #FEFEFE;
-    box-shadow: 2px 2px #DFE0E0;
-}
-
-/* .links a { 
-    color: green; 
-    padding: 5px 16px; 
-    text-decoration: none; 
-    font-size: 17px; 
-    display: block; 
-    text-align: center; 
-    border-bottom: 1px solid white; 
-} 
-
-.links a:hover { 
-    background-color: green; 
-    color: white; 
-}  */
-
-
-/* button:hover { 
-    animation-name: background-color; 
-    animation-duration: 500ms; 
-} 
-
-@keyframes background-color { 
-    100% { 
-        background-color: #4065F3; 
-    } 
-}  */
+.hamburger {
+    width: 20px;
+    height: 5px;
+    background-color: #00CADE;
+    margin: 1px 0;
+  }
