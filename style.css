@@ -2,6 +2,23 @@
     .navbar {
         background-color: #00CADE !important;
     } 
+    .nav-item a:hover {
+        color: #000000 !important;
+        background-color: #5E5E5E; 
+    }
+    .dropdown-item,
+    .nav-link {
+    font-family: Montserrat, sans-serif;
+    font-size: 15px !important;
+    color: #FEFEFE !important;
+    font-weight: 800;
+    }
+    .navbar-brand {
+        color: #00CADE !important;
+        background-color: #FEFEFE !important;
+        }
+    
+
 }
 
 @media (min-width: 769px) {
@@ -32,18 +49,12 @@ body {
     font-weight: 800;
 }
 
-.nav-item {
-    animation-name: background-color; 
-    animation-duration: 500ms; 
-}
-
 .nav-item a:hover {
     color: #5E5E5E;
     background-color: #DFE0E0; 
 }
 
 .navbar-brand:hover {
-    color: #FEFEFE;
     box-shadow: 2px 2px #DFE0E0;
 }
 
