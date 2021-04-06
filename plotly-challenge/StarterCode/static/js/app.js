@@ -90,8 +90,15 @@ d3.json("samples.json").then(data => {
 
     Plotly.plot("bubble", bubbleData, bubbleLayout)
     
-    let dropdownMenu = d3.select("#selDataset");
-    let input = dropdownMenu.property("data.samples.id");
+    let input = d3.select("#selDataset");
+    // what do we know how to do?
+    // mySelect.append("option").attr("value", "set your value").text("set our text");
+
+    data.names.forEach(element => {
+        input.append("option").attr("value", element).text(element);
+    });
+
+    input.on("change", () => handleChange(data));
 });
 
 // So: Start by finishing d3.json and drawing initial plots.
