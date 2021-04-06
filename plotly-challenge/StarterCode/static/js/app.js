@@ -37,31 +37,31 @@ d3.json("samples.json").then(data => {
     let sample = data.samples.filter(sample => sample.id === "940");
     let metadata = data.metadata[0];
 
-    console.log(sample);
-    console.log(sample[0].sample_values);
+    // console.log(sample[0].sample_values);
 
     // Bubble chart variables
-    let xBubble = sample[0].otu_ids;
-    let yBubble = sample[0].sample_values;
+    let xBubble = JSON.stringify(sample[0].otu_ids);
+    let yBubble = (sample[0].sample_values).slice(0, 10);
     let markerSize = sample[0].sample_values;
     let markerColor = sample[0].otu_ids;
     let textValue = sample[0].otu_labels;
 
     // Bar chart variables
-    let xBar = sample[0].sample_values;
-    let yBar = sample[0].otu_ids;
+    let xBar = (sample[0].sample_values).sort((a, b) => b - a).slice(0, 10);
+    let yBar = JSON.stringify(sample[0].otu_ids);
     let hovertext = sample[0].otu_labels;
         
-
     // Build demographics panel
     d3.select("#sample-metadata").html(metadata);
     
     // Build bar chart:
     let barData = [{
         x: xBar,
-        y: yBar.sort((a, b) => b - a).slice(0, 10),
+        y: yBar,
         type: 'bar',
-        orientation: 'h'
+        orientation: 'h',
+        text: hovertext,
+        width: .8
     }];
 
     let barLayout = {
@@ -73,7 +73,7 @@ d3.json("samples.json").then(data => {
 
     // Build bubble chart:
     let trace1 = {
-        x: xBubble.sort((a, b) => b - a).slice(0, 10),
+        x: xBubble,
         y: yBubble,
         marker: {
             color: markerColor.sort((a, b) => b - a).slice(0, 10),
@@ -91,9 +91,6 @@ d3.json("samples.json").then(data => {
     Plotly.plot("bubble", bubbleData, bubbleLayout)
     
     let input = d3.select("#selDataset");
-    // what do we know how to do?
-    // mySelect.append("option").attr("value", "set your value").text("set our text");
-
     data.names.forEach(element => {
         input.append("option").attr("value", element).text(element);
     });
