@@ -31,67 +31,77 @@
 
 // Establish variables and get data from json
 // these are the variables that name all similar data within the json-- all otu_ids, all sample_values
-function init() {
-    d3.json("samples.json").then(data => {
-        console.log(data);
+d3.json("samples.json").then(data => {
+    console.log(data);
 
+    let sample = data.samples.filter(sample => sample.id === "940");
+    let metadata = data.metadata[0];
 
+    console.log(sample);
+    console.log(sample[0].sample_values);
 
-        // Get data
-        let id = data.samples[0].id;
-        let otu_ids = data.samples[0].otu_ids;
-        let sample_values = data.samples[0].sample_values;
-        let otu_labels = data.samples[0].otu_labels;
-        let metadata = JSON.parse(data.metadata[0]);
+    // Bubble chart variables
+    let xBubble = sample[0].otu_ids;
+    let yBubble = sample[0].sample_values;
+    let markerSize = sample[0].sample_values;
+    let markerColor = sample[0].otu_ids;
+    let textValue = sample[0].otu_labels;
 
-        console.log(metadata);
-
-        // Build demographics panel
-        d3.select("#sample-metadata").html(metadata)
-
+    // Bar chart variables
+    let xBar = sample[0].sample_values;
+    let yBar = sample[0].otu_ids;
+    let hovertext = sample[0].otu_labels;
         
-        // Build bar chart:
-        let barData = [{
-            x: sample_values,
-            y: otu_ids.sort((a, b) => b - a).slice(0, 10),
-            type: 'bar',
-            orientation: 'h'
-        }];
 
-        let barLayout = {
-            title: 'Top 10 OTUs',
+    // Build demographics panel
+    d3.select("#sample-metadata").html(metadata);
+    
+    // Build bar chart:
+    let barData = [{
+        x: xBar,
+        y: yBar.sort((a, b) => b - a).slice(0, 10),
+        type: 'bar',
+        orientation: 'h'
+    }];
+
+    let barLayout = {
+        title: 'Top 10 OTUs',
+    }
+
+    // Plot bar chart
+    Plotly.plot("bar", barData, barLayout)
+
+    // Build bubble chart:
+    let trace1 = {
+        x: xBubble.sort((a, b) => b - a).slice(0, 10),
+        y: yBubble,
+        marker: {
+            color: markerColor.sort((a, b) => b - a).slice(0, 10),
+            size: markerSize,
+        mode: 'markers'
         }
+    };
 
-        // Plot bar chart
-        Plotly.plot("bar", barData, barLayout)
+    let bubbleData = [trace1];
 
-        // Build bubble chart:
-        let trace1 = {
-            x: otu_ids,
-            y: sample_values,
-            marker: {
-                color: otu_ids,
-                size: sample_values,
-            mode: 'markers'
-            }
-        };
+    let bubbleLayout = {
+        title: 'Top 10 OTUs',
+    };
 
-        let bubbleData = [trace1];
-
-        let bubbleLayout = {
-            title: 'Top 10 OTUs',
-        };
-
-        Plotly.plot("bubble", bubbleData, bubbleLayout)
-        
-        let dropdownMenu = d3.select("#selDataset");
-        let input = dropdownMenu.property("data.samples.id");
-    })
-};
-
-init();
+    Plotly.plot("bubble", bubbleData, bubbleLayout)
+    
+    let dropdownMenu = d3.select("#selDataset");
+    let input = dropdownMenu.property("data.samples.id");
+});
 
 // So: Start by finishing d3.json and drawing initial plots.
 // Go on to updateInfo and make sure all variables necessary for plotting are established
 // Build initial plots
 // Then try to figure out restyle
+
+    // // Get data
+    // let id = data.samples[0].id;
+    // let otu_ids = data.samples[0].otu_ids;
+    // let sample_values = data.samples[0].sample_values;
+    // let otu_labels = data.samples[0].otu_labels;
+    // let metadata = data.metadata[0];
