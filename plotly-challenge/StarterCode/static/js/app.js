@@ -1,16 +1,3 @@
-/**
- * Helper function to select stock data
- * Returns an array of values
- * @param {array} rows
- * @param {integer} index
- * index 0 - id
- * index 1 - otu_ids
- * index 2 - sample_values
- * index 3 - otu_labels
- */
-
-
-
 // filter data from json to narrow down to id
 // this is the data to plot-- one specific otu_id, one specific sample_value
  updatePlots = (data, id) => {
@@ -49,11 +36,13 @@ function init() {
         console.log(data);
 
         // Get data
-        let id = unpack(data.samples, 0);
-        let otu_ids = unpack(data.samples, 1);
-        let sample_values = unpack(data.samples, 2);
-        let otu_labels = unpack(data.samples, 3);
-        let metadata = unpack(data.metadata);
+        let id = data.samples[0].id;
+        let otu_ids = data.samples[0].otu_ids;
+        let sample_values = data.samples[0].sample_values;
+        let otu_labels = data.samples[0].otu_labels;
+        let metadata = data.samples[0].metadata;
+
+        console.log(otu_labels);
 
         // Build bar chart:
         let barData = [{
@@ -77,40 +66,22 @@ function init() {
                 color: otu_ids,
                 size: sample_values,
             mode: 'markers'
-            };
+            }
         }];
 
         let bubbleLayout = {
             title: 'Top 10 OTUs',
-        }
+        };
 
         Plotly.newPlot("bubble", bubbleData, bubbleLayout)
         
-        ...
         let dropdownMenu = d3.select("#selDataset");
         let input = dropdownMenu.property("value");
     })
 };
 
+init();
 
-var data = [{
-    x: [1999, 2000, 2001, 2002],
-    y: [10, 15, 13, 17],
-    type: 'scatter'
-  }];
-  
-  var layout = {
-    title: 'Sales Growth',
-    xaxis: {
-      title: 'Year',
-      showgrid: false,
-      zeroline: false
-    },
-    yaxis: {
-      title: 'Percent',
-      showline: false
-    }
-  
 // So: Start by finishing d3.json and drawing initial plots.
 // Go on to updateInfo and make sure all variables necessary for plotting are established
 // Build initial plots
