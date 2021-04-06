@@ -35,20 +35,27 @@ function init() {
     d3.json("samples.json").then(data => {
         console.log(data);
 
+
+
         // Get data
         let id = data.samples[0].id;
         let otu_ids = data.samples[0].otu_ids;
         let sample_values = data.samples[0].sample_values;
         let otu_labels = data.samples[0].otu_labels;
-        let metadata = data.samples[0].metadata;
+        let metadata = JSON.parse(data.metadata[0]);
 
-        console.log(otu_labels);
+        console.log(metadata);
 
+        // Build demographics panel
+        d3.select("#sample-metadata").html(metadata)
+
+        
         // Build bar chart:
         let barData = [{
             x: sample_values,
-            y: otu_ids,
-            type: 'bar'
+            y: otu_ids.sort((a, b) => b - a).slice(0, 10),
+            type: 'bar',
+            orientation: 'h'
         }];
 
         let barLayout = {
@@ -56,10 +63,10 @@ function init() {
         }
 
         // Plot bar chart
-        Plotly.newPlot("bar", barData, barLayout)
+        Plotly.plot("bar", barData, barLayout)
 
         // Build bubble chart:
-        let bubbleData = [{
+        let trace1 = {
             x: otu_ids,
             y: sample_values,
             marker: {
@@ -67,16 +74,18 @@ function init() {
                 size: sample_values,
             mode: 'markers'
             }
-        }];
+        };
+
+        let bubbleData = [trace1];
 
         let bubbleLayout = {
             title: 'Top 10 OTUs',
         };
 
-        Plotly.newPlot("bubble", bubbleData, bubbleLayout)
+        Plotly.plot("bubble", bubbleData, bubbleLayout)
         
         let dropdownMenu = d3.select("#selDataset");
-        let input = dropdownMenu.property("value");
+        let input = dropdownMenu.property("data.samples.id");
     })
 };
 
