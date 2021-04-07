@@ -1,12 +1,21 @@
+function make_meta(metadata){
+    var return_value = "";
+    for (var key in metadata) {
+        if (metadata.hasOwnProperty(key)) {
+            return_value += "<strong>" + key + ": </strong>" + metadata[key] + "<br>";
+        }
+    }
+    return return_value;
+};
+
 d3.json("samples.json").then(data => {
     console.log(data);
 
     let sample = data.samples.filter(sample => sample.id === "940");
     let metadata = data.metadata[0];
-    console.log([metadata]);
 
     //Populate demographic info
-    d3.select("#sample-metadata").html([metadata]);
+    d3.select("#sample-metadata").html(make_meta(metadata));
 
     // Bar chart variables
     let xBar = (sample[0].sample_values).sort((a, b) => b - a).slice(0, 10);
@@ -32,13 +41,13 @@ d3.json("samples.json").then(data => {
 
     // Bubble chart variables
     let xBubble = JSON.stringify(sample[0].otu_ids);
-    let yBubble = (sample[0].sample_values).slice(0, 10);
+    let yBubble = (sample[0].sample_values).sort((a, b) => b - a).slice(0, 10);
     let markerSize = sample[0].sample_values;
     let markerColor = sample[0].otu_ids;
     let textValue = sample[0].otu_labels;
 
     // Build bubble chart:
-    let bubbleData = {
+    let bubbleData = [{
         x: xBubble,
         y: yBubble,
         marker: {
@@ -46,7 +55,7 @@ d3.json("samples.json").then(data => {
             size: markerSize,
         mode: 'markers'
         }
-    };
+    }];
 
     let bubbleLayout = {
         title: 'Top 10 OTUs',
@@ -70,9 +79,14 @@ updatePlots = (data, id) => {
     console.log(id)
 
     let sample = data.samples.filter(sample => sample.id === id);
+    let metadata = data.metadata.filter(metadatum => metadatum.id === id);
 
     console.log(sample);
-    console.log(sample[0].sample_values);
+    console.log(metadata);
+
+    //Populate demographic info
+    d3.select("#sample-metadata").html("");
+    d3.select("#sample-metadata").html(make_meta(metadata));
 
     // Bar chart variables
     let xBar = (sample[0].sample_values).sort((a, b) => b - a).slice(0, 10);
@@ -94,15 +108,30 @@ updatePlots = (data, id) => {
 
     Plotly.newPlot("bar", barData, barLayout);
 
-    // // Bubble chart variables
-    // let xBubble = JSON.stringify(sample[0].otu_ids);
-    // let yBubble = (sample[0].sample_values).slice(0, 10);
-    // let markerSize = sample[0].sample_values;
-    // let markerColor = sample[0].otu_ids;
-    // let textValue = sample[0].otu_labels;
+    // Bubble chart variables
+    let xBubble = JSON.stringify(sample[0].otu_ids);
+    let yBubble = (sample[0].sample_values).sort((a, b) => b - a).slice(0, 10);
+    let markerSize = sample[0].sample_values;
+    let markerColor = sample[0].otu_ids;
+    let textValue = sample[0].otu_labels;
 
-    // // Re-build bubble chart
-    // Plotly.restyle("bubble", bubbleData, bubbleLayout);
+    // Build bubble chart:
+    let bubbleData = [{
+        x: xBubble,
+        y: yBubble,
+        marker: {
+            color: markerColor.sort((a, b) => b - a).slice(0, 10),
+            size: markerSize,
+        mode: 'markers'
+        }
+    }];
+
+    let bubbleLayout = {
+        title: 'Top 10 OTUs',
+    };
+
+    // Plot bubble chart
+    Plotly.newPlot("bubble", bubbleData, bubbleLayout);
 };
 
 
