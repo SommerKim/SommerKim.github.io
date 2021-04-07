@@ -1,4 +1,4 @@
-let id = 940;
+let id = "940";
 
 d3.json("samples.json").then(data => {
     console.log(data);
@@ -6,6 +6,7 @@ d3.json("samples.json").then(data => {
 let input = d3.select("#selDataset");
 data.names.forEach(element => {
     input.append("option").attr("value", element).text(element)
+    });
 
 updatePlots = (data, id) => {
     console.log(data)
@@ -53,3 +54,6 @@ optionChanged = (id) => {
         updatePlots(data, id);
     });
 };
+
+updatePlots();
+});
