@@ -36,7 +36,7 @@ d3.json("samples.json").then(data => {
 
     let barLayout = {
         title: 'Top 10 OTUs',
-    }
+    };
 
     // Plot bar chart
     Plotly.newPlot("bar", barData, barLayout);
