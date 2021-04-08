@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
 body {
-    padding-top: 4rem;
+    padding-top: 11rem;
     padding-bottom: 4rem;
     padding-right: 0;
     padding-left: 0;
@@ -18,20 +18,45 @@ body {
   
   }
 
-.box {
-    background-color: #fefefe;
-    border-radius: 8px;
-    padding: 10px
+.row {
+    padding-right: 10px;
+    padding-top: 10px;
+    position: static;
+    bottom: 0;
+    left: 0
 }
 
-.header {
+.panel-body {
+    font-size: large;
+    line-height: 150%;
+}
+
+.box {
+    background-color: #fefefe;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%
+}
+
+/* .header {
     font-family: 'Anton', sans-serif;
     color: #fefefe;
     font-size: 5vw;
+} */
+
+.header-box {
+    width: 100%;
+    height: auto;
+    position: relative;
+    bottom: 0;
+    left: 0;
 }
 
-.spacer {
-    height: 25px;
+.header-image {
+    width: 99%;
+    position: absolute;
+    bottom: 0;
+    left: 0
 }
 
 .panel-primary {
@@ -46,5 +71,9 @@ h3 {
 
 #bar,
 #bubble {
-    width: 100%
+    width: 100%;
+}
+
+.outline {
+    border: thick solid black;
 }
