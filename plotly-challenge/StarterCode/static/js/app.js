@@ -1,8 +1,8 @@
 function make_meta(metadata){
     var return_value = "";
-    for (var key in metadata) {
-        if (metadata.hasOwnProperty(key)) {
-            return_value += "<strong>" + key + ": </strong>" + metadata[key] + "<br>";
+    for (var key in metadata[0]) {
+        if (metadata[0].hasOwnProperty(key)) {
+            return_value += "<strong>" + key + ": </strong>" + metadata[0][key] + "<br>";
         }
     }
     return return_value;
@@ -12,15 +12,17 @@ d3.json("samples.json").then(data => {
     console.log(data);
 
     let sample = data.samples.filter(sample => sample.id === "940");
-    let metadata = data.metadata[0];
+    let metadata = data.metadata.filter(metadatum => metadatum.id === 940);
+
+    console.log(metadata[0]);
 
     //Populate demographic info
     d3.select("#sample-metadata").html(make_meta(metadata));
 
     // Bar chart variables
-    let xBar = (sample[0].sample_values).sort((a, b) => b - a).slice(0, 10);
-    let yBar = JSON.stringify(sample[0].otu_ids);
-    let hovertext = sample[0].otu_labels;
+    let xBar = (sample[0].sample_values).sort((a, b) => b - a).slice(0, 10).reverse();
+    let yBar = JSON.stringify(sample[0].otu_ids.sort((a, b) => b - a).slice(0, 10).reverse());
+    let hovertext = sample[0].otu_labels.sort((a, b) => b - a).slice(0, 10).reverse();
 
     // Build bar chart:
     let barData = [{
@@ -38,6 +40,9 @@ d3.json("samples.json").then(data => {
 
     // Plot bar chart
     Plotly.newPlot("bar", barData, barLayout);
+
+    console.log(xBar);
+    console.log(yBar);
 
     // Bubble chart variables
     let xBubble = JSON.stringify(sample[0].otu_ids);
@@ -71,27 +76,23 @@ d3.json("samples.json").then(data => {
     });
 });
 
-// // On change to the DOM, call handleChange()
-// input.on("change", () => handleChange(data));
-
 updatePlots = (data, id) => {
     console.log(data)
     console.log(id)
 
     let sample = data.samples.filter(sample => sample.id === id);
-    let metadata = data.metadata.filter(metadatum => metadatum.id === id);
+    let metadata = data.metadata.filter(metadatum => metadatum.id === +id);
 
     console.log(sample);
-    console.log(metadata);
 
     //Populate demographic info
     d3.select("#sample-metadata").html("");
     d3.select("#sample-metadata").html(make_meta(metadata));
 
     // Bar chart variables
-    let xBar = (sample[0].sample_values).sort((a, b) => b - a).slice(0, 10);
-    let yBar = JSON.stringify(sample[0].otu_ids);
-    let hovertext = sample[0].otu_labels;
+    let xBar = (sample[0].sample_values).sort((a, b) => b - a).slice(0, 10).reverse();
+    let yBar = JSON.stringify(sample[0].otu_ids.sort((a, b) => b - a).slice(0, 10).reverse());
+    let hovertext = sample[0].otu_labels.sort((a, b) => b - a).slice(0, 10).reverse();
 
     let barData = [{
         x: xBar,
@@ -133,12 +134,6 @@ updatePlots = (data, id) => {
     // Plot bubble chart
     Plotly.newPlot("bubble", bubbleData, bubbleLayout);
 };
-
-
-// handleChange = (data) => {
-//     let id = d3.event.target.value; // value of ddl
-//     updatePlots(data, id)
-// };
 
 optionChanged = (id) => {
     d3.json("samples.json").then (data => {
