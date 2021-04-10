@@ -87,7 +87,7 @@ updatePlots = (data, id) => {
         yaxis: {
             autorange: "reversed",
             type: 'category',
-            text: JSON.stringify(y),
+            // ticktext: 'OTU ' + y,
             showticklabels: true,
         },
     };
@@ -107,7 +107,12 @@ updatePlots = (data, id) => {
     }];
 
     let bubbleLayout = {
-        title: 'Bubble',
+        title: 'Bio Bubbles',
+        xaxis: {
+            title: {
+                text: "OTU IDs"
+            }
+        }
     };
 
     // Plot bubble chart
