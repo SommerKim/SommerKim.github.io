@@ -85,6 +85,7 @@ updatePlots = (data, id) => {
     let barLayout = {
         title: `Top 10 OTUs for Test Subject ${id}`,
         yaxis: {
+            autorange: "reversed",
             type: 'category',
             text: JSON.stringify(y),
             showticklabels: true,
