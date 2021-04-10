@@ -1,3 +1,4 @@
+// Function to format metadata for panel
 function make_meta(metadata){
     var return_value = "";
     for (var key in metadata[0]) {
@@ -8,74 +9,22 @@ function make_meta(metadata){
     return return_value;
 };
 
-d3.json("samples.json").then(data => {
-    console.log(data);
-
-    let sample = data.samples.filter(sample => sample.id === "940");
-    let metadata = data.metadata.filter(metadatum => metadatum.id === 940);
-
-    console.log(metadata[0]);
-
-    //Populate demographic info
-    d3.select("#sample-metadata").html(make_meta(metadata));
-
-    // Bar chart variables
-    let xBar = (sample[0].sample_values).sort((a, b) => b - a).slice(0, 10).reverse();
-    let yBar = JSON.stringify(sample[0].otu_ids.sort((a, b) => b - a).slice(0, 10).reverse());
-    let hovertext = sample[0].otu_labels.sort((a, b) => b - a).slice(0, 10).reverse();
-
-    // Build bar chart:
-    let barData = [{
-        x: xBar,
-        y: yBar,
-        type: 'bar',
-        orientation: 'h',
-        text: hovertext,
-        width: .8
-    }];
-
-    let barLayout = {
-        title: 'Top 10 OTUs',
-    };
-
-    // Plot bar chart
-    Plotly.newPlot("bar", barData, barLayout);
-
-    console.log(xBar);
-    console.log(yBar);
-
-    // Bubble chart variables
-    let xBubble = JSON.stringify(sample[0].otu_ids);
-    let yBubble = (sample[0].sample_values).sort((a, b) => b - a).slice(0, 10);
-    let markerSize = sample[0].sample_values;
-    let markerColor = sample[0].otu_ids;
-    let textValue = sample[0].otu_labels;
-
-    // Build bubble chart:
-    let bubbleData = [{
-        x: xBubble,
-        y: yBubble,
-        marker: {
-            color: markerColor.sort((a, b) => b - a).slice(0, 10),
-            size: markerSize,
-        mode: 'markers'
-        }
-    }];
-
-    let bubbleLayout = {
-        title: 'Top 10 OTUs',
-    };
-
-    // Plot bubble chart
-    Plotly.newPlot("bubble", bubbleData, bubbleLayout);
+function init() {
+    d3.json("samples.json").then(data => {
+        console.log(data);
 
     // Getting id from dropdown
     let input = d3.select("#selDataset");
     data.names.forEach(element => {
         input.append("option").attr("value", element).text(element)
-    });
-});
+    });    
 
+    // Call updatePlots function to build plots
+    updatePlots(data, "940");
+    });
+};
+
+// Code to build plots
 updatePlots = (data, id) => {
     console.log(data)
     console.log(id)
@@ -89,55 +38,87 @@ updatePlots = (data, id) => {
     d3.select("#sample-metadata").html("");
     d3.select("#sample-metadata").html(make_meta(metadata));
 
-    // Bar chart variables
-    let xBar = (sample[0].sample_values).sort((a, b) => b - a).slice(0, 10).reverse();
-    let yBar = JSON.stringify(sample[0].otu_ids.sort((a, b) => b - a).slice(0, 10).reverse());
-    let hovertext = sample[0].otu_labels.sort((a, b) => b - a).slice(0, 10).reverse();
+    // X & Y variables for charts
+    let otuID = sample[0].otu_ids;
+    let sampleVal = sample[0].sample_values;
+    let otuLabel = sample[0].otu_labels;
 
+    console.log(otuID);
+    console.log(sampleVal);
+
+    xy = otuID.map((val, i) => ({
+        otuID: val,
+        sampleVal: sampleVal[i],
+        otuLabel: otuLabel[i],
+        }));
+
+    xy.sort((a, b) => b - a);
+    xy = (xy.slice(0, 10));
+    
+    console.log(xy);
+
+    x = [];
+    y = [];
+    labels = [];
+    
+    for (let i = 0; i < xy.length; i ++) {
+        x.push(xy[i].sampleVal);
+        y.push(xy[i].otuID);
+        labels.push(xy[i].otuLabel);
+      };
+
+    console.log(x);
+    console.log(y);
+    console.log(labels);
+
+    // Build bar chart:
     let barData = [{
-        x: xBar,
-        y: yBar,
+        x: x,
+        y: y,
         type: 'bar',
         orientation: 'h',
-        text: hovertext,
+        hovertext: labels,
+        marker: {color: 'rgb(52, 192, 235)'},
         width: .8
     }];
 
     let barLayout = {
-        title: 'Top 10 OTUs',
-    }
+        title: `Top 10 OTUs for Test Subject ${id}`,
+        yaxis: {
+            type: 'category',
+            text: JSON.stringify(y),
+            showticklabels: true,
+        },
+    };
 
+    // Plot bar chart
     Plotly.newPlot("bar", barData, barLayout);
-
-    // Bubble chart variables
-    let xBubble = JSON.stringify(sample[0].otu_ids);
-    let yBubble = (sample[0].sample_values).sort((a, b) => b - a).slice(0, 10);
-    let markerSize = sample[0].sample_values;
-    let markerColor = sample[0].otu_ids;
-    let textValue = sample[0].otu_labels;
 
     // Build bubble chart:
     let bubbleData = [{
-        x: xBubble,
-        y: yBubble,
+        x: y,
+        y: x,
+        mode: 'markers',
         marker: {
-            color: markerColor.sort((a, b) => b - a).slice(0, 10),
-            size: markerSize,
-        mode: 'markers'
+            color: y,
+            size: x,
         }
     }];
 
     let bubbleLayout = {
-        title: 'Top 10 OTUs',
+        title: 'Bubble',
     };
 
     // Plot bubble chart
     Plotly.newPlot("bubble", bubbleData, bubbleLayout);
 };
 
+// Function for handling new ID input from dropdown
 optionChanged = (id) => {
     d3.json("samples.json").then (data => {
         console.log(data);
         updatePlots(data, id);
     });
 };
+
+init();
