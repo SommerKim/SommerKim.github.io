@@ -92,8 +92,10 @@ updatePlots = (data, id) => {
         },
     };
 
+    var barConfig = {responsive: true}
+
     // Plot bar chart
-    Plotly.newPlot("bar", barData, barLayout);
+    Plotly.newPlot("bar", barData, barLayout, barConfig);
 
     // Build bubble chart:
     let bubbleData = [{
@@ -115,8 +117,10 @@ updatePlots = (data, id) => {
         }
     };
 
+    var bubbleConfig = {responsive: true}
+
     // Plot bubble chart
-    Plotly.newPlot("bubble", bubbleData, bubbleLayout);
+    Plotly.newPlot("bubble", bubbleData, bubbleLayout, bubbleConfig);
 };
 
 // Function for handling new ID input from dropdown

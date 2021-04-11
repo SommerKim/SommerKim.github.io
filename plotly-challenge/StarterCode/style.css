@@ -3,6 +3,10 @@
 
 /* BACKGROUND AREA AND OVERALL STYLE*/
 
+* {
+    box-sizing: border-box;
+  }
+
 /* html {
     background: #34c0eb;
     background: linear-gradient(45deg, #34c0eb, #8431f7);
